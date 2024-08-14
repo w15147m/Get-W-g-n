@@ -10,21 +10,39 @@
         .container {
             margin-top: 20px;
         }
+
         .result-table {
             margin-top: 3px;
         }
+
         .result-table th,
         .result-table td {
             text-align: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0.3em;
+            border-radius: 0.2em;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid slategrey;
         }
     </style>
 </head>
 
 <body>
-    <div class="container p-3 rounded" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;">
+    <div class="container p-3 rounded"
+        style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;">
         <h1 class="mb-4">Extract Mobile Numbers</h1>
-        <div class=" row justify-content-center rounded m-1" style="box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;">
-            <div class="col-lg-9  p-1 rounded mx-2" >
+        <div class=" row justify-content-center rounded m-1"
+            style="box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;">
+            <div class="col-lg-9  p-1 rounded mx-2">
                 <div class="form-group">
                     <label for="inputText">Paste the text here:</label>
                     <textarea id="inputText" class="form-control" placeholder="Paste your text here..."
@@ -35,17 +53,19 @@
                     <button class="btn btn-info " onclick="copyNumbers()">Copy All Numbers</button>
                 </div>
             </div>
-            <div class=" p-1  rounded overflow-auto  " style="height: 261px;">
+            <div class=" p-1  rounded overflow-auto  ">
                 <label for="inputText">Extracted Mobile Numbers:</label>
-                <table id="outputTable" class="table result-table  border">
-                    <thead>
-                        <tr>
-                            <th>Mobile Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="  overflow-auto  " style="height: 261px;">
+                    <table id="outputTable" class="table result-table  border">
+                        <thead>
+                            <tr>
+                                <th>Mobile Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
