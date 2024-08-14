@@ -5,22 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extract Mobile Numbers</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Styles -->
     <style>
         .container {
             margin-top: 20px;
         }
-
         .result-table {
             margin-top: 3px;
         }
-
         .result-table th,
         .result-table td {
             text-align: center;
-            
         }
     </style>
 </head>
@@ -28,7 +23,7 @@
 <body>
     <div class="container p-3 rounded" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;">
         <h1 class="mb-4">Extract Mobile Numbers</h1>
-        <div class=" row  rounded m-1" style="box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;">
+        <div class=" row justify-content-center rounded m-1" style="box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;">
             <div class="col-lg-9  p-1 rounded mx-2" >
                 <div class="form-group">
                     <label for="inputText">Paste the text here:</label>
@@ -49,44 +44,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Mobile numbers will be inserted here -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <!-- Bootstrap and jQuery (required for Bootstrap JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Custom JavaScript -->
     <script>
         function extractNumbers() {
-            // Get the input from the textarea
             const inputText = document.getElementById('inputText').value;
-
-            // Regular expression to match mobile numbers in the format +92 XXX YYYYYYY
             const phoneNumbers = inputText.match(/\+92\s\d{3}\s\d{7}/g);
-
-            // Use a Set to filter out duplicate numbers
             const uniqueNumbers = new Set(phoneNumbers || []);
-
-            // Get the table body element
             const tbody = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
 
-            // Clear any existing rows
             tbody.innerHTML = '';
 
             if (uniqueNumbers.size > 0) {
-                // Add each unique phone number to the table
                 uniqueNumbers.forEach((number) => {
                     const row = tbody.insertRow();
                     const cell = row.insertCell(0);
                     cell.textContent = number;
                 });
             } else {
-                // Add a row to indicate no phone numbers found
                 const row = tbody.insertRow();
                 const cell = row.insertCell(0);
                 cell.colSpan = 1;
@@ -100,7 +82,6 @@
                 .map(row => row.cells[0].textContent)
                 .join('\n');
 
-            // Create a temporary textarea element to copy the text
             const tempTextarea = document.createElement('textarea');
             tempTextarea.value = phoneNumbers;
             document.body.appendChild(tempTextarea);
@@ -108,8 +89,6 @@
             document.execCommand('copy');
             document.body.removeChild(tempTextarea);
 
-            // Notify the user that the numbers have been copied
-            alert('Phone numbers copied to clipboard!');
         }
     </script>
 </body>
