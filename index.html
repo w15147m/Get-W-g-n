@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Mobile Numbers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .result-table {
+            margin-top: 20px;
+        }
+        .result-table th, .result-table td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Extract Mobile Numbers</h1>
+        
+        <div class="form-group">
+            <label for="inputText">Paste the text here:</label>
+            <textarea id="inputText" class="form-control" placeholder="Paste your text here..." rows="6"></textarea>
+        </div>
+        
+        <button class="btn btn-primary" onclick="extractNumbers()">Extract Numbers</button>
+        <button class="btn btn-secondary mt-2" onclick="copyNumbers()">Copy All Numbers</button>
+        
+        <h2 class="mt-4">Extracted Mobile Numbers:</h2>
+        <table id="outputTable" class="table result-table">
+            <thead>
+                <tr>
+                    <th>Mobile Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Mobile numbers will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Bootstrap and jQuery (required for Bootstrap JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        function extractNumbers() {
+            // Get the input from the textarea
+            const inputText = document.getElementById('inputText').value;
+            
+            // Regular expression to match mobile numbers in the format +92 XXX YYYYYYY
+            const phoneNumbers = inputText.match(/\+92\s\d{3}\s\d{7}/g);
+            
+            // Use a Set to filter out duplicate numbers
+            const uniqueNumbers = new Set(phoneNumbers || []);
+            
+            // Get the table body element
+            const tbody = document.getElementById('outputTable').getElementsByTagName('tbody')[0];
+            
+            // Clear any existing rows
+            tbody.innerHTML = '';
+
+            if (uniqueNumbers.size > 0) {
+                // Add each unique phone number to the table
+                uniqueNumbers.forEach((number) => {
+                    const row = tbody.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.textContent = number;
+                });
+            } else {
+                // Add a row to indicate no phone numbers found
+                const row = tbody.insertRow();
+                const cell = row.insertCell(0);
+                cell.colSpan = 1;
+                cell.textContent = 'No mobile numbers found.';
+                cell.classList.add('text-center');
+            }
+        }
+
+        function copyNumbers() {
+            const phoneNumbers = Array.from(document.getElementById('outputTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr'))
+                .map(row => row.cells[0].textContent)
+                .join('\n');
+            
+            // Create a temporary textarea element to copy the text
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = phoneNumbers;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+            
+            // Notify the user that the numbers have been copied
+            alert('Phone numbers copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
